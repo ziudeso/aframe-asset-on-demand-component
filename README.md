@@ -1,6 +1,6 @@
 ## aframe-asset-on-demand-component
 
-A Asset OnDemand component for [A-Frame](https://aframe.io). 
+Asset OnDemand Component for [A-Frame](https://aframe.io). 
 
 The A-Frame Asset OnDemand component does basically two things:
 
@@ -27,7 +27,7 @@ Normally you would do something like this:
 
 This will load the Asset in the beginning and attach it to the box as a texture. It will stay there throughout the whole lifecycle of the scene.
 
-With the Asset OnDemand Module you would it like this:
+With the Asset OnDemand Module you would do it like this:
 
 ```html
 <head>
@@ -47,10 +47,10 @@ With the Asset OnDemand Module you would it like this:
 
 The are now different states during the lifecycle of the scene:
 
-1. After Rendering: An img-Tag with an empty src-Attribute has been added to <a-assets>
+1. After Rendering: An img-Tag with an empty src-Attribute has been added to a-assets
 2. After play (or any other configurable event): The resource is loaded within the img-Tag and attached as a Texture to the Box (via the material Component)
-3. After pause (or any other configurable event): The Texture is removed from the box and the image is removed from <a-assets>
-4. No more memory is used up
+3. After pause (or any other configurable event): The Texture is removed from the box and the image is removed from a-assets
+4. No more memory is used up (Check Texture-Count in the stats component)
 5. Steps 2./3. can now alternate
 
 ### API
@@ -67,7 +67,7 @@ The are now different states during the lifecycle of the scene:
 | fallsback      | An Asset to use as default/fallback | '' |
 | addevent      | Comma-seperated List of Events when the Asset should be attached | 'play' |
 | removeevent      | Comma-seperated List of Events when the Asset should be detached | 'pause' |
-| softmode      | If true only the texture will be removed on detached, not the asset | 'false' |
+| softmode      | If true only the texture will be removed when detached, not the asset itself | 'false' |
 
 
 ### Installation
