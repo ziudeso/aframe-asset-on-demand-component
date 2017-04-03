@@ -34,8 +34,23 @@ AFRAME.registerComponent('asset-on-demand', {
         },
         componentattr: {
             default: '',
-            parse: function (value) {
-                return value.replace(",", ";");
+            parse: function(value) {
+                var pairs = value.split(",");
+
+                var kvPair = pairs && pairs.length > 0 ? {} : null;
+
+                for (var i=0; i < pairs.length; i++) {
+                    var tmpArr = pairs[i].split(":");
+                    kvPair[tmpArr[0]] = tmpArr[1];
+                }
+
+                /*
+                 for (var key in myArray) {
+                 console.log("key " + key + " has value " + myArray[key]);
+                 }
+                 */
+
+                return kvPair;
             }
         },
         assetattr: {
@@ -44,7 +59,7 @@ AFRAME.registerComponent('asset-on-demand', {
         },
         fallback: {
             default: '',
-            type: 'src'
+            type: 'asset'
         },
         addevent: {
             default: 'play',
@@ -87,10 +102,15 @@ AFRAME.registerComponent('asset-on-demand', {
         this.assetElement.setAttribute("id", this.assetID);
 
         this.addEventListeners();
-
     },
 
     update: function (oldData) {
+
+        this.componentObj = {};
+
+        if (this.data.componentattr) {
+            this.componentObj = this.data.componentattr;
+        }
 
         // Remove previously added EventListeners
         if (oldData && (oldData.addevent && oldData.removeevent)) {
@@ -162,14 +182,10 @@ AFRAME.registerComponent('asset-on-demand', {
     },
 
     attachAsset: function () {
-
         // Attach the Asset
-        if (this.data.componentattr != '') {
-            AFRAME.utils.entity.setComponentProperty(this.el, this.data.component, this.data.componentattr + ";" + this.data.assetattr + ": " + "#" + this.assetID);
-        } else {
-            AFRAME.utils.entity.setComponentProperty(this.el, this.data.component + "." + this.data.assetattr, "#" + this.assetID);
-        }
+        this.componentObj[this.data.assetattr] = "#" + this.assetID;
 
+        this.attach();
     },
 
     detachAsset: function () {
@@ -195,10 +211,18 @@ AFRAME.registerComponent('asset-on-demand', {
     },
 
     attachDefault: function () {
-
         // Attach the default entity
         if (this.data.fallback != '') {
-            AFRAME.utils.entity.setComponentProperty(this.el, this.data.component + "." + this.data.assetattr, this.data.fallback);
+            this.componentObj[this.data.assetattr] = this.data.fallback;
+        }
+        this.attach();
+    },
+
+    attach: function() {
+        if (this.componentObj) {
+            AFRAME.utils.entity.setComponentProperty(this.el, this.data.component, this.componentObj);
+        } else {
+            throw Error("ASSET-ON-DEMAND: ComponentObj not set.");
         }
     },
 
