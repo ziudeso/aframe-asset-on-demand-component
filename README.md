@@ -58,16 +58,15 @@ The are now different states during the lifecycle of the scene:
 | Property | Description | Default Value |
 | -------- | ----------- | ------------- |
 | src      | URL of the Asset that should be loaded | '' |
-| type      | Type of the Asset (img, audio or video) | 'img' |
+| type      | Type of the Asset (img, audio or video) | img |
 | attributes      | Attributes for the Asset-Entity that will be created on Demand (Format: attr1:value1,attr2:value2,...)  | '' |
-| src      | URL of the Asset that should be loaded | '' |
 | component      | Name of the A-Frame Component where the Asset will be assigned | 'material' |
 | componentattr      | Attributes for the Component that will be added (Format: attr1:value1,attr2:value2,...) | '' |
-| assetattr      | Attribute-Name of the Component, that will contain the Asset | 'src' |
-| fallsback      | An Asset to use as default/fallback | '' |
-| addevent      | Comma-seperated List of Events when the Asset should be attached | 'play' |
-| removeevent      | Comma-seperated List of Events when the Asset should be detached | 'pause' |
-| softmode      | If true only the texture will be removed when detached, not the asset itself | 'false' |
+| assetattr      | Attribute-Name of the Component, that will contain the Asset | src |
+| fallback      | The id (#xyz) of an Asset to use as default and fallback | '' |
+| addevent      | Comma-seperated List of Events when the Asset should be attached | play |
+| removeevent      | Comma-seperated List of Events when the Asset should be detached | pause |
+| softmode      | If true only the texture will be removed when detached, not the asset itself (so the asset will not have to be (re)loaded on the fly) | false |
 
 
 ### Installation
