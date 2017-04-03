@@ -7,9 +7,14 @@
     <a-scene stats>
       <a-assets></a-assets>
       <a-entity
-              position="0 1.2 -3"
+              position="-1 1.2 -3"
               geometry="primitive: box"
               material="color: #C03546" asset-on-demand="src: ./image.jpg; removeevent: click"></a-entity>
+
+      <a-entity
+              position="1 1.2 -3"
+              geometry="primitive: box"
+              asset-on-demand="src: ./image.jpg; componentattr:color:#ff00ff,shader:flat; removeevent: click"></a-entity>
 
       <a-camera>
         <a-cursor></a-cursor>
