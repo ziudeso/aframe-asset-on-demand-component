@@ -81,20 +81,18 @@
 	        componentattr: {
 	            default: '',
 	            parse: function(value) {
-	                var pairs = value.split(",");
+	                var kvPair = null;
 
-	                var kvPair = pairs && pairs.length > 0 ? {} : null;
+	                if (value != '') {
+	                    var pairs = value.split(",");
 
-	                for (var i=0; i < pairs.length; i++) {
-	                    var tmpArr = pairs[i].split(":");
-	                    kvPair[tmpArr[0]] = tmpArr[1];
+	                    kvPair = pairs && pairs.length > 0 ? {} : null;
+
+	                    for (var i=0; i < pairs.length; i++) {
+	                        var tmpArr = pairs[i].split(":");
+	                        kvPair[tmpArr[0]] = tmpArr[1];
+	                    }
 	                }
-
-	                /*
-	                 for (var key in myArray) {
-	                 console.log("key " + key + " has value " + myArray[key]);
-	                 }
-	                 */
 
 	                return kvPair;
 	            }
@@ -146,8 +144,6 @@
 
 	        // Set Asset id
 	        this.assetElement.setAttribute("id", this.assetID);
-
-	        this.addEventListeners();
 	    },
 
 	    update: function (oldData) {
@@ -160,9 +156,10 @@
 
 	        // Remove previously added EventListeners
 	        if (oldData && (oldData.addevent && oldData.removeevent)) {
-	            this.removeEventListeners();
-	            this.addEventListeners();
+	            this.removeEventListeners(oldData);
 	        }
+
+	        this.addEventListeners();
 
 	        // Attach the Fallback/Default-Asset
 	        this.attachDefault();
@@ -186,7 +183,7 @@
 	        }
 	    },
 
-	    removeEventListeners: function() {
+	    removeEventListeners: function(oldData) {
 	        for (var i = 0; i < oldData.addevent.length; i++) {
 	            this.el.removeEventListener(oldData.addevent[i], this.loadAsset);
 	        }
@@ -265,10 +262,8 @@
 	    },
 
 	    attach: function() {
-	        if (this.componentObj) {
+	        if (this.componentObj && Object.keys(this.componentObj).length > 0) {
 	            AFRAME.utils.entity.setComponentProperty(this.el, this.data.component, this.componentObj);
-	        } else {
-	            throw Error("ASSET-ON-DEMAND: ComponentObj not set.");
 	        }
 	    },
 
