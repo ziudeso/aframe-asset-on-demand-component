@@ -246,7 +246,7 @@
 	        }
 
 	        // Remove the Component
-	        this.el.removeAttribute(this.data.component);
+	        // this.el.removeAttribute(this.data.component);
 
 	        // Attach the default
 	        this.attachDefault();

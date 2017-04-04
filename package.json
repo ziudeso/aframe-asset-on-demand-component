@@ -1,6 +1,6 @@
 {
   "name": "aframe-asset-on-demand-component",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Asset OnDemand component for A-Frame.",
   "main": "index.js",
   "scripts": {
