@@ -98,6 +98,7 @@ AFRAME.registerComponent('asset-on-demand', {
 
         // Set Asset id
         this.assetElement.setAttribute("id", this.assetID);
+        this.assetElement.setAttribute("crossorigin", "anonymous");
     },
 
     update: function (oldData) {
